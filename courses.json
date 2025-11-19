@@ -1,0 +1,449 @@
+[
+{
+    "course_id": "CS101",
+    "course_name": "Introduction to Computer Science",
+    "credits": 4,
+    "tags": [
+      "cs",
+      "intro",
+      "programming",
+      "problem-solving",
+      "intro-sequence",
+      "programming-intensive"
+    ],
+    "prerequisites": [],
+    "description": "An introduction to computer science and programming using a high-level language, focusing on problem-solving, basic data types, and control structures.",
+    "difficulty": 2,
+    "workload": 3,
+    "type": "major"
+  },
+  {
+    "course_id": "CS102",
+    "course_name": "Object-Oriented Programming",
+    "credits": 4,
+    "tags": [
+      "cs",
+      "programming",
+      "object-oriented",
+      "java",
+      "intro-sequence",
+      "programming-intensive"
+    ],
+    "prerequisites": ["CS101"],
+    "description": "Covers object-oriented programming concepts including classes, inheritance, polymorphism, and basic software design.",
+    "difficulty": 3,
+    "workload": 4,
+    "type": "major"
+  },
+  {
+    "course_id": "CS110",
+    "course_name": "Discrete Structures",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "discrete-math",
+      "logic",
+      "combinatorics",
+      "math-heavy",
+      "theory-heavy"
+    ],
+    "prerequisites": ["CS101"],
+    "description": "Introduces discrete mathematical structures such as logic, sets, relations, functions, combinatorics, and graphs with applications to computer science.",
+    "difficulty": 4,
+    "workload": 3,
+    "type": "major"
+  },
+  {
+    "course_id": "CS201",
+    "course_name": "Data Structures",
+    "credits": 4,
+    "tags": [
+      "cs",
+      "data-structures",
+      "algorithms",
+      "programming",
+      "programming-intensive",
+      "theory-heavy",
+      "project-heavy"
+    ],
+    "prerequisites": ["CS102", "CS110"],
+    "description": "Study of fundamental data structures such as lists, stacks, queues, trees, and hash tables, with emphasis on implementation and analysis.",
+    "difficulty": 4,
+    "workload": 4,
+    "type": "major"
+  },
+  {
+    "course_id": "CS202",
+    "course_name": "Computer Organization and Architecture",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "computer-organization",
+      "architecture",
+      "hardware",
+      "systems-heavy",
+      "lab-based"
+    ],
+    "prerequisites": ["CS101"],
+    "description": "Covers the organization of computer systems, including digital logic, data representation, instruction sets, and basic processor design.",
+    "difficulty": 4,
+    "workload": 4,
+    "type": "major"
+  },
+  {
+    "course_id": "CS210",
+    "course_name": "Foundations of Algorithms",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "algorithms",
+      "complexity",
+      "theory",
+      "math-heavy",
+      "theory-heavy"
+    ],
+    "prerequisites": ["CS201"],
+    "description": "Design and analysis of algorithms, including asymptotic complexity, sorting, searching, recursion, divide-and-conquer, and graph algorithms.",
+    "difficulty": 4,
+    "workload": 4,
+    "type": "major"
+  },
+  {
+    "course_id": "CS220",
+    "course_name": "Systems Programming",
+    "credits": 4,
+    "tags": [
+      "cs",
+      "systems",
+      "c-programming",
+      "unix",
+      "systems-heavy",
+      "programming-intensive",
+      "lab-based",
+      "project-heavy"
+    ],
+    "prerequisites": ["CS201", "CS202"],
+    "description": "An introduction to systems-level programming in C, including memory management, processes, system calls, and basic concurrency concepts.",
+    "difficulty": 5,
+    "workload": 5,
+    "type": "major"
+  },
+  {
+    "course_id": "CS230",
+    "course_name": "Operating Systems",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "operating-systems",
+      "systems",
+      "concurrency",
+      "systems-heavy",
+      "programming-intensive",
+      "project-heavy"
+    ],
+    "prerequisites": ["CS220"],
+    "description": "Concepts and design of modern operating systems, including processes, threads, scheduling, synchronization, memory management, and file systems.",
+    "difficulty": 5,
+    "workload": 5,
+    "type": "major"
+  },
+  {
+    "course_id": "CS240",
+    "course_name": "Database Systems",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "databases",
+      "sql",
+      "data-modeling",
+      "project-heavy",
+      "data-management"
+    ],
+    "prerequisites": ["CS201"],
+    "description": "Introduction to database systems, relational models, SQL, normalization, and basic transaction processing and indexing techniques.",
+    "difficulty": 3,
+    "workload": 4,
+    "type": "major"
+  },
+  {
+    "course_id": "CS250",
+    "course_name": "Computer Networks",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "networks",
+      "tcp/ip",
+      "systems",
+      "systems-heavy",
+      "lab-based"
+    ],
+    "prerequisites": ["CS220"],
+    "description": "Covers fundamental concepts of computer networking, including layered architectures, routing, congestion control, and application protocols.",
+    "difficulty": 4,
+    "workload": 4,
+    "type": "elective"
+  },
+  {
+    "course_id": "CS260",
+    "course_name": "Software Engineering",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "software-engineering",
+      "design",
+      "team-project",
+      "project-heavy",
+      "team-based",
+      "reading-writing"
+    ],
+    "prerequisites": ["CS201"],
+    "description": "Principles and practices of software engineering, including requirements analysis, design patterns, testing, version control, and team-based development.",
+    "difficulty": 3,
+    "workload": 5,
+    "type": "major"
+  },
+  {
+    "course_id": "CS270",
+    "course_name": "Web Application Development",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "web",
+      "frontend",
+      "backend",
+      "full-stack",
+      "frontend-ui",
+      "project-heavy",
+      "programming-intensive"
+    ],
+    "prerequisites": ["CS102"],
+    "description": "Introduction to modern web development including HTML, CSS, JavaScript, and basic backend concepts for building full-stack applications.",
+    "difficulty": 2,
+    "workload": 4,
+    "type": "elective"
+  },
+  {
+    "course_id": "CS280",
+    "course_name": "Mobile Application Development",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "mobile",
+      "android",
+      "apps",
+      "project-heavy",
+      "programming-intensive",
+      "mobile-ui"
+    ],
+    "prerequisites": ["CS102"],
+    "description": "Covers the fundamentals of mobile application development, focusing on building user interfaces and interacting with platform APIs.",
+    "difficulty": 3,
+    "workload": 4,
+    "type": "elective"
+  },
+  {
+    "course_id": "CS301",
+    "course_name": "Introduction to Artificial Intelligence",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "ai",
+      "search",
+      "knowledge-representation",
+      "ai-core",
+      "math-heavy",
+      "theory-heavy",
+      "programming-intensive"
+    ],
+    "prerequisites": ["CS201", "CS110"],
+    "description": "Introduction to artificial intelligence techniques including search, reasoning, knowledge representation, and basic probabilistic methods.",
+    "difficulty": 4,
+    "workload": 4,
+    "type": "elective"
+  },
+  {
+    "course_id": "CS320",
+    "course_name": "Machine Learning",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "ml",
+      "ai",
+      "data-science",
+      "ai-core",
+      "math-heavy",
+      "stats",
+      "programming-intensive"
+    ],
+    "prerequisites": ["CS210"],
+    "description": "Covers fundamental machine learning algorithms including regression, classification, clustering, and evaluation methods.",
+    "difficulty": 5,
+    "workload": 5,
+    "type": "elective"
+  },
+  {
+    "course_id": "CS330",
+    "course_name": "Computer Graphics",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "graphics",
+      "rendering",
+      "visualization",
+      "project-heavy",
+      "programming-intensive",
+      "math-heavy"
+    ],
+    "prerequisites": ["CS201", "CS110"],
+    "description": "Introduction to computer graphics, covering 2D and 3D transformations, rendering, shading, and basic animation techniques.",
+    "difficulty": 4,
+    "workload": 5,
+    "type": "elective"
+  },
+  {
+    "course_id": "CS340",
+    "course_name": "Human-Computer Interaction",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "hci",
+      "ux",
+      "design",
+      "ux-focused",
+      "project-heavy",
+      "team-based",
+      "reading-writing",
+      "frontend-ui"
+    ],
+    "prerequisites": ["CS201"],
+    "description": "Study of user-centered design, usability, interaction techniques, and evaluation methods for interactive systems.",
+    "difficulty": 2,
+    "workload": 4,
+    "type": "elective"
+  },
+  {
+    "course_id": "CS350",
+    "course_name": "Computer Security",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "security",
+      "cryptography",
+      "networks",
+      "systems-heavy",
+      "programming-intensive",
+      "project-heavy",
+      "security-focused"
+    ],
+    "prerequisites": ["CS220", "CS210"],
+    "description": "Introduction to computer and network security, covering cryptographic primitives, access control, vulnerabilities, and secure coding practices.",
+    "difficulty": 4,
+    "workload": 4,
+    "type": "elective"
+  },
+  {
+    "course_id": "CS360",
+    "course_name": "Parallel and Distributed Systems",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "parallel",
+      "distributed-systems",
+      "concurrency",
+      "systems-heavy",
+      "programming-intensive",
+      "math-heavy",
+      "theory-heavy",
+      "project-heavy"
+    ],
+    "prerequisites": ["CS230"],
+    "description": "Concepts and programming models for parallel and distributed systems, including threads, message passing, and performance considerations.",
+    "difficulty": 5,
+    "workload": 5,
+    "type": "elective"
+  },
+  {
+    "course_id": "CS370",
+    "course_name": "Compiler Design",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "compilers",
+      "parsing",
+      "languages",
+      "systems-heavy",
+      "programming-intensive",
+      "theory-heavy",
+      "project-heavy"
+    ],
+    "prerequisites": ["CS210", "CS202"],
+    "description": "Introduction to the design and implementation of compilers, including lexical analysis, parsing, semantic analysis, and basic code generation.",
+    "difficulty": 5,
+    "workload": 5,
+    "type": "elective"
+  },
+  {
+    "course_id": "CS380",
+    "course_name": "Data Mining and Analytics",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "data-mining",
+      "ml",
+      "data-science",
+      "data-science",
+      "math-heavy",
+      "stats",
+      "ai-applied",
+      "programming-intensive",
+      "project-heavy"
+    ],
+    "prerequisites": ["CS240", "CS210"],
+    "description": "Covers techniques for discovering patterns in large datasets, including association rules, clustering, classification, and evaluation.",
+    "difficulty": 4,
+    "workload": 5,
+    "type": "elective"
+  },
+  {
+    "course_id": "CS390",
+    "course_name": "Capstone Project I",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "capstone",
+      "project",
+      "software-engineering",
+      "project-heavy",
+      "team-based",
+      "capstone",
+      "integration-course",
+      "reading-writing"
+    ],
+    "prerequisites": ["CS260"],
+    "description": "First part of a two-semester capstone sequence where students form teams, propose a substantial software project, and begin design and implementation.",
+    "difficulty": 3,
+    "workload": 5,
+    "type": "major"
+  },
+  {
+    "course_id": "CS391",
+    "course_name": "Capstone Project II",
+    "credits": 3,
+    "tags": [
+      "cs",
+      "capstone",
+      "project",
+      "software-engineering",
+      "project-heavy",
+      "team-based",
+      "capstone",
+      "integration-course",
+      "reading-writing"
+    ],
+    "prerequisites": ["CS390"],
+    "description": "Continuation of Capstone Project I focusing on implementation, testing, documentation, and presentation of the completed project.",
+    "difficulty": 3,
+    "workload": 5,
+    "type": "major"
+  }
+]
