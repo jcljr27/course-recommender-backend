@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     # Environment: "dev" or "prod"
     ENV: str = "dev"
 
+    # Logging level (INFO, DEBUG, WARNING, etc.)
+    log_level: str = "INFO"
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
