@@ -4,12 +4,10 @@ from sqlalchemy.orm import sessionmaker
 
 from .settings import settings
 
-# Example defaults (from settings.py):
-#   sqlite:///./courses.db
-#   postgresql+psycopg2://user:password@host:5432/dbname
-SQLALCHEMY_DATABASE_URL = settings.database_url
+# Use the DATABASE_URL setting (uppercase, matching Settings class)
+SQLALCHEMY_DATABASE_URL = settings.DATABASE_URL
 
-# For SQLite, need check_same_thread=False
+# For SQLite we need check_same_thread=False, but not for Postgres
 connect_args = {}
 if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
     connect_args = {"check_same_thread": False}

@@ -8,77 +8,72 @@ from course_recommender.settings import settings
 
 
 def main():
-    # 1. Create tables (no-op if they already exist)
+    # Just so you can see which DB this is hitting
+    print(f"Using database: {engine.url}")
+
+    # 1. DROP all tables and recreate them to match current models
+    print("Dropping all tables...")
+    Base.metadata.drop_all(bind=engine)
+
+    print("Creating all tables...")
     Base.metadata.create_all(bind=engine)
 
-    # 2. Load courses.json
-    courses_path = Path(settings.courses_path)
+    # 2. Resolve courses.json path from settings.COURSES_PATH
+    courses_path = Path(settings.COURSES_PATH)
     if not courses_path.exists():
         raise FileNotFoundError(f"courses.json not found at {courses_path}")
 
+    print(f"Loading courses from: {courses_path}")
     with courses_path.open("r", encoding="utf-8") as f:
-        data = json.load(f)
+        courses_data = json.load(f)
 
     session = SessionLocal()
     try:
-        # Optional: clear existing data for a clean import
-        session.query(CoursePrerequisite).delete()
-        session.query(CourseTag).delete()
-        session.query(Course).delete()
-        session.commit()
-
-        # 3. First pass: insert Course rows
-        course_map = {}  # map from course_id string -> Course ORM object
-
-        for item in data:
-            course = Course(
-                course_id=item["course_id"],
-                course_name=item["course_name"],
-                credits=item["credits"],
-                description=item["description"],
-                difficulty=item["difficulty"],
-                workload=item["workload"],
-                type=item["type"],
+        for course in courses_data:
+            c = Course(
+                course_id=course["course_id"],
+                course_name=course["course_name"],
+                description=course.get("description", ""),
+                credits=course.get("credits", 0),
+                difficulty=course.get("difficulty", 3),
+                workload=course.get("workload", 3),
+                type=course.get("type", "elective"),
             )
-            session.add(course)
-            course_map[item["course_id"]] = course
+            session.add(c)
+            session.flush()  # so c.id is populated
 
-        session.flush()  # assign IDs without committing yet
+            # --- TAGS: dedupe per course to avoid UNIQUE constraint errors ---
+            raw_tags = course.get("tags", []) or []
+            # preserve order while removing duplicates
+            seen = set()
+            deduped_tags = []
+            for t in raw_tags:
+                if t not in seen:
+                    seen.add(t)
+                    deduped_tags.append(t)
 
-        # 4. Second pass: insert tags (deduplicated per course)
-        for item in data:
-            course = course_map[item["course_id"]]
-            raw_tags = item.get("tags", []) or []
+            for tag in deduped_tags:
+                session.add(CourseTag(course_id=c.id, tag=tag))
 
-            seen_tags = set()
-            for tag in raw_tags:
-                if tag in seen_tags:
-                    # Skip duplicates for this course to avoid UNIQUE constraint error
-                    continue
-                seen_tags.add(tag)
-                session.add(CourseTag(course=course, tag=tag))
+            # --- PREREQS: also dedupe just in case ---
+            raw_prereqs = course.get("prerequisites", []) or []
+            seen_pr = set()
+            deduped_prereqs = []
+            for p in raw_prereqs:
+                if p not in seen_pr:
+                    seen_pr.add(p)
+                    deduped_prereqs.append(p)
 
-        session.flush()
-
-        # 5. Third pass: insert prerequisites (course -> prerequisite_course)
-        for item in data:
-            course = course_map[item["course_id"]]
-            for prereq_code in item.get("prerequisites", []) or []:
-                prereq_course = course_map.get(prereq_code)
-                if not prereq_course:
-                    # If the prereq isn't in this dataset, skip (or log if you want)
-                    continue
+            for prereq in deduped_prereqs:
                 session.add(
                     CoursePrerequisite(
-                        course=course,
-                        prerequisite_course=prereq_course,
+                        course_id=c.id,
+                        prereq_course_id=prereq,
                     )
                 )
 
-        # 6. Commit all changes
         session.commit()
-        print(f"Imported {len(course_map)} courses into the database.")
-
+        print(f"Imported {len(courses_data)} courses from {courses_path}")
     except Exception:
         session.rollback()
         raise
