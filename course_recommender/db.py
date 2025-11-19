@@ -1,15 +1,17 @@
 # course_recommender/db.py
 from sqlalchemy import create_engine
+from sqlalchemy.engine.url import make_url
 from sqlalchemy.orm import sessionmaker
 
 from .settings import settings
 
-# Use the DATABASE_URL setting (uppercase, matching Settings class)
 SQLALCHEMY_DATABASE_URL = settings.DATABASE_URL
 
-# For SQLite we need check_same_thread=False, but not for Postgres
+# Decide connect_args based on driver (sqlite vs postgres, etc.)
+url = make_url(SQLALCHEMY_DATABASE_URL)
 connect_args = {}
-if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
+if url.drivername.startswith("sqlite"):
+    # Needed for SQLite in some contexts (e.g., FastAPI with threads)
     connect_args = {"check_same_thread": False}
 
 engine = create_engine(
