@@ -46,11 +46,10 @@ def _course_orm_to_dict(course: CourseModel) -> Dict[str, Any]:
     }
     """
     tags = [t.tag for t in course.tags]
-    prereq_codes = [
-        cp.prerequisite_course.course_id
-        for cp in course.prerequisites
-        if cp.prerequisite_course is not None
-    ]
+
+    # We store prerequisites as a separate table with string prereq_course_id,
+    # so just pull that string directly.
+    prereq_codes = [cp.prereq_course_id for cp in course.prerequisites]
 
     return {
         "course_id": course.course_id,
@@ -77,9 +76,9 @@ def get_all_courses_for_recommender(db: Session) -> List[Dict[str, Any]]:
         db.query(CourseModel)
         .options(
             joinedload(CourseModel.tags),
-            joinedload(CourseModel.prerequisites).joinedload(
-                CoursePrerequisite.prerequisite_course
-            ),
+            # Just eager-load the CoursePrerequisite rows; we don't have a
+            # relationship to another Course here, just prereq_course_id string.
+            joinedload(CourseModel.prerequisites),
         )
         .all()
     )
@@ -97,9 +96,7 @@ def get_course_for_recommender(db: Session, course_id: str) -> Optional[Dict[str
         db.query(CourseModel)
         .options(
             joinedload(CourseModel.tags),
-            joinedload(CourseModel.prerequisites).joinedload(
-                CoursePrerequisite.prerequisite_course
-            ),
+            joinedload(CourseModel.prerequisites),
         )
         .filter(CourseModel.course_id == course_id)
         .one_or_none()
@@ -120,7 +117,8 @@ def get_student_profile_data(
       {
         "student_id": ...,
         "major": ...,
-        "preferred_difficulty": ...,
+        "preferred_difficulty_min": ...,
+        "preferred_difficulty_max": ...,
         "completed_courses": [course_id, ...],
         "interest_tags": [tag, ...]
       }
@@ -130,9 +128,9 @@ def get_student_profile_data(
     profile = (
         db.query(StudentProfile)
         .options(
-            joinedload(StudentProfile.completed_courses).joinedload(
-                StudentCompletedCourse.course
-            ),
+            # We only store course_id string on StudentCompletedCourse,
+            # there is no .course relationship to join.
+            joinedload(StudentProfile.completed_courses),
             joinedload(StudentProfile.interest_tags),
         )
         .filter(StudentProfile.student_id == student_id)
@@ -142,17 +140,15 @@ def get_student_profile_data(
     if profile is None:
         return None
 
-    completed_courses: List[str] = [
-        sc.course.course_id
-        for sc in profile.completed_courses
-        if sc.course is not None
-    ]
+    # Just use the stored course_id string (like "CS101")
+    completed_courses: List[str] = [sc.course_id for sc in profile.completed_courses]
     interest_tags: List[str] = [t.tag for t in profile.interest_tags]
 
     return {
         "student_id": profile.student_id,
         "major": profile.major,
-        "preferred_difficulty": profile.preferred_difficulty,
+        "preferred_difficulty_min": profile.preferred_difficulty_min,
+        "preferred_difficulty_max": profile.preferred_difficulty_max,
         "completed_courses": completed_courses,
         "interest_tags": interest_tags,
     }
