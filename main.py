@@ -29,8 +29,10 @@ def create_app() -> FastAPI:
     # CORS MIDDLEWARE  (needed for React frontend)
     # -----------------------------------------------------
     origins = [
-        "http://localhost:5173",   # React default for CRA
-        "https://course-recommender-frontend.vercel.app",   # Vite default
+        "http://localhost:5173",  # React default for CRA
+        "http://localhost:8000",
+        "https://course-recommender-frontend-lyart.vercel.app",   # Vite default
+
     ]
 
     app.add_middleware(
